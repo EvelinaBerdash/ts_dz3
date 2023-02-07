@@ -1,4 +1,5 @@
 import { renderBlock } from "./lib.js";
+import { renderSearchResultsBlock } from "./search-results.js";
 function formatDate(date) {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -19,6 +20,7 @@ export function renderSearchFormBlock(dateIn, dateOut) {
         console.log(searchFormData);
     }
     function onSearchClick() {
+        renderSearchResultsBlock();
         const cityForm = document.getElementById("city")
             .value;
         const dateInForm = document.getElementById("check-in-date").value;

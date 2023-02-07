@@ -1,4 +1,14 @@
 import { renderBlock } from "./lib.js";
+export function getFavoritesItems() {
+    let favoriteItems = JSON.parse(localStorage.getItem("favoriteItems"));
+    if (!favoriteItems) {
+        favoriteItems = [];
+    }
+    return favoriteItems;
+}
+export function getFavoritesAmount() {
+    return getFavoritesItems().length;
+}
 export function renderUserBlock(userName, avatar, favoriteItemsAmount) {
     const user = {
         username: userName,
@@ -6,13 +16,7 @@ export function renderUserBlock(userName, avatar, favoriteItemsAmount) {
     };
     const favoritesCaption = favoriteItemsAmount ? favoriteItemsAmount : "ничего нет";
     const hasFavoriteItems = favoriteItemsAmount ? true : false;
-    localStorage.setItem("user", JSON.stringify({
-        username: userName,
-        avatarUrl: avatar,
-    }));
-    const localfavoriteItemsAmount = favoriteItemsAmount !== undefined
-        ? localStorage.setItem("favoriteItemsAmount", favoriteItemsAmount.toString())
-        : localStorage.setItem("favoriteItemsAmount", "");
+    localStorage.setItem("user", JSON.stringify(user));
     function getUserData() {
         const store = JSON.parse(localStorage.getItem("user"));
         if (typeof store === "object" &&
@@ -21,13 +25,6 @@ export function renderUserBlock(userName, avatar, favoriteItemsAmount) {
             return store;
         }
         console.log(store);
-    }
-    function getFavoritesAmount() {
-        const favorites = JSON.parse(localStorage.getItem("favoriteItemsAmount"));
-        if (typeof favorites === "number") {
-            return favorites;
-        }
-        console.log(favorites);
     }
     getUserData();
     getFavoritesAmount();
